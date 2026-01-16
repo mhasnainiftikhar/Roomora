@@ -5,7 +5,7 @@ import { cities } from '../assets/assets';
 const Hero = () => {
   return (
     <div
-      className="relative flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 text-white min-h-screen bg-cover bg-center bg-no-repeat"
+      className="relative flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 text-white min-h-screen bg-cover bg-center bg-no-repeat pt-20 md:pt-0"
       style={{ backgroundImage: `url(${heroImage})` }}
     >
       {/* Overlay for better text visibility */}
