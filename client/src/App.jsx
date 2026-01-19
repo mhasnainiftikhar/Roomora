@@ -7,6 +7,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsConditions from './pages/TermsConditions'
 import CookieSettings from './pages/CookieSettings'
 import Rooms from './pages/Rooms'
+import RoomDetails from './pages/RoomDetails'
 
 const App = () => {
   const isOwnerPath = useLocation().pathname.includes("owner")
@@ -17,6 +18,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/rooms' element={<Rooms />} />
+          <Route path='/room/:id' element={<RoomDetails />} />
           <Route path='/privacy' element={<PrivacyPolicy />} />
           <Route path='/terms' element={<TermsConditions />} />
           <Route path='/cookies' element={<CookieSettings />} />
