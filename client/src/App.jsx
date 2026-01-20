@@ -10,6 +10,10 @@ import Rooms from './pages/Rooms'
 import RoomDetails from './pages/RoomDetails'
 import MyBookings from './pages/MyBookings'
 import HotelReg from './components/HotelReg'
+import Layout from './pages/hotelOwner/Layout'
+import Dashboard from './pages/hotelOwner/Dashboard'
+import AddRoom from './pages/hotelOwner/AddRoom'
+import ListRoom from './pages/hotelOwner/ListRoom'
 
 const App = () => {
   const isOwnerPath = useLocation().pathname.includes("owner")
@@ -19,15 +23,19 @@ const App = () => {
     <div>
       {!isOwnerPath && <Navbar />}
 
-      {/* Temporary Test Button for HotelReg Modal */}
-      <button
-        onClick={() => setIsHotelRegOpen(true)}
-        className="fixed bottom-10 right-10 z-[60] bg-orange-500 text-white px-6 py-3 rounded-full font-bold shadow-2xl hover:bg-orange-600 transition-all animate-bounce"
-      >
-        Test Register Modal
-      </button>
+      {!isOwnerPath && (
+        <>
+          {/* Temporary Test Button for HotelReg Modal */}
+          <button
+            onClick={() => setIsHotelRegOpen(true)}
+            className="fixed bottom-10 right-10 z-[60] bg-black text-white px-6 py-3 rounded-full font-bold shadow-2xl hover:bg-gray-600 transition-all animate-bounce"
+          >
+            Register Your Hotel
+          </button>
 
-      <HotelReg isOpen={isHotelRegOpen} onClose={() => setIsHotelRegOpen(false)} />
+          <HotelReg isOpen={isHotelRegOpen} onClose={() => setIsHotelRegOpen(false)} />
+        </>
+      )}
       <div className='min-h-[70vh]'>
         <Routes>
           <Route path='/' element={<Home />} />
@@ -37,6 +45,11 @@ const App = () => {
           <Route path='/privacy' element={<PrivacyPolicy />} />
           <Route path='/terms' element={<TermsConditions />} />
           <Route path='/cookies' element={<CookieSettings />} />
+          <Route path='/owner' element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path='add-room' element={<AddRoom />} />
+            <Route path='list-of-rooms' element={<ListRoom />} />
+          </Route>
         </Routes>
       </div>
       {!isOwnerPath && <Footer />}
