@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 connectDB();
 
 //Clerk Webhook API
-app.use("/api/clerk",handleClerkWebhook);
+app.use("/api/clerk", handleClerkWebhook);
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');
@@ -23,3 +23,5 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+export default app;
