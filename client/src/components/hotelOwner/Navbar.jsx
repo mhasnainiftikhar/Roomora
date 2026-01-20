@@ -10,7 +10,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/owner" className="flex items-center gap-2">
           <img src={logo} alt="Roomora Logo" className="h-8 w-auto brightness-0" />
-          <span className="text-xl font-black text-gray-900 font-playfair tracking-tight">
+          <span className="text-xl font-black text-gray-900  tracking-tight">
             Roomora
           </span>
           <span className="ml-2 px-3 py-1 bg-gray-100 text-[10px] font-black uppercase tracking-widest text-gray-500 rounded-full">
