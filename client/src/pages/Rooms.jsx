@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import { roomsDummyData, assets } from '../assets/assets';
-import HotelCard from '../components/HotelCard';
+import HotelCardList from '../components/HotelCardList';
 
 const Rooms = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedType, setSelectedType] = useState('All');
-    const [maxPrice, setMaxPrice] = useState(500);
+    const [maxPrice, setMaxPrice] = useState(1000);
     const [selectedAmenities, setSelectedAmenities] = useState([]);
 
     const roomTypes = ['All', 'Single Bed', 'Double Bed', 'Suite', 'Deluxe'];
@@ -33,9 +33,48 @@ const Rooms = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mt-20">
             <div className="flex flex-col lg:flex-row gap-10">
 
-                {/* Filters Sidebar */}
-                <aside className="w-full lg:w-72 flex-shrink-0">
-                    <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 sticky top-28">
+                {/* Results Area (On Left Now) */}
+                <main className="flex-grow lg:order-1">
+                    <div className="flex justify-between items-end mb-8">
+                        <div>
+                            <h1 className="text-3xl font-extrabold text-gray-900 mb-2 font-playfair">Available Stays</h1>
+                            <p className="text-gray-500 text-sm font-medium">Showing {filteredRooms.length} properties</p>
+                        </div>
+                    </div>
+
+                    {filteredRooms.length > 0 ? (
+                        <div className="flex flex-col gap-6">
+                            {filteredRooms.map((room, index) => (
+                                <HotelCardList key={room._id} room={room} index={index} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-24 bg-white rounded-[3rem] border border-dashed border-gray-200">
+                            <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <svg className="w-10 h-10 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                </svg>
+                            </div>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">No results found</h3>
+                            <p className="text-gray-500 max-w-sm mx-auto">Try adjusting your filters or search query to find what you're looking for.</p>
+                            <button
+                                onClick={() => {
+                                    setSearchQuery('');
+                                    setSelectedType('All');
+                                    setMaxPrice(1000);
+                                    setSelectedAmenities([]);
+                                }}
+                                className="mt-8 text-gray-900 font-bold border-b-2 border-gray-900 hover:text-gray-600 hover:border-gray-600 transition-all"
+                            >
+                                Clear all filters
+                            </button>
+                        </div>
+                    )}
+                </main>
+
+                {/* Filters Sidebar (On Right Now) */}
+                <aside className="w-full lg:w-72 flex-shrink-0 lg:order-2">
+                    <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100 sticky top-28">
                         <h2 className="text-xl font-bold mb-8 flex items-center gap-2">
                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
@@ -67,8 +106,8 @@ const Rooms = () => {
                                         key={type}
                                         onClick={() => setSelectedType(type)}
                                         className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${selectedType === type
-                                                ? 'bg-gray-900 text-white shadow-lg'
-                                                : 'bg-gray-50 text-gray-500 hover:bg-gray-100'
+                                            ? 'bg-gray-900 text-white shadow-lg'
+                                            : 'bg-gray-50 text-gray-500 hover:bg-gray-100'
                                             }`}
                                     >
                                         {type}
@@ -118,45 +157,6 @@ const Rooms = () => {
                         </div>
                     </div>
                 </aside>
-
-                {/* Results Area */}
-                <main className="flex-grow">
-                    <div className="flex justify-between items-end mb-8">
-                        <div>
-                            <h1 className="text-3xl font-extrabold text-gray-900 mb-2 font-playfair">Available Stays</h1>
-                            <p className="text-gray-500 text-sm font-medium">Showing {filteredRooms.length} properties</p>
-                        </div>
-                    </div>
-
-                    {filteredRooms.length > 0 ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                            {filteredRooms.map((room, index) => (
-                                <HotelCard key={room._id} room={room} index={index} />
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="text-center py-24 bg-white rounded-[3rem] border border-dashed border-gray-200">
-                            <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <svg className="w-10 h-10 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                                </svg>
-                            </div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">No results found</h3>
-                            <p className="text-gray-500 max-w-sm mx-auto">Try adjusting your filters or search query to find what you're looking for.</p>
-                            <button
-                                onClick={() => {
-                                    setSearchQuery('');
-                                    setSelectedType('All');
-                                    setMaxPrice(1000);
-                                    setSelectedAmenities([]);
-                                }}
-                                className="mt-8 text-gray-900 font-bold border-b-2 border-gray-900 hover:text-gray-600 hover:border-gray-600 transition-all"
-                            >
-                                Clear all filters
-                            </button>
-                        </div>
-                    )}
-                </main>
             </div>
         </div>
     );
