@@ -51,7 +51,8 @@ const Footer = () => {
                     <div>
                         <h4 className="text-gray-900 font-bold mb-6 text-lg">Company</h4>
                         <ul className="flex flex-col gap-4">
-                            {['About Us', 'Careers', 'Latest News', 'Investors', 'RoomOra Plus'].map((item) => (
+                            <li><Link to="/about" className="text-gray-500 hover:text-gray-900 transition-colors">About Us</Link></li>
+                            {['Careers', 'Latest News', 'Investors', 'RoomOra Plus'].map((item) => (
                                 <li key={item}>
                                     <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors">{item}</a>
                                 </li>

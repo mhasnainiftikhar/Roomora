@@ -75,6 +75,10 @@ export const assets = {
     exclusiveOfferCardImg1,
     exclusiveOfferCardImg2,
     exclusiveOfferCardImg3,
+    roomImg1,
+    roomImg2,
+    roomImg3,
+    roomImg4,
 }
 
 export const cities = [
