@@ -6,6 +6,8 @@ import { clerkMiddleware } from '@clerk/express'
 import handleClerkWebhook from './controllers/ClerkWebhook.js';
 import userRouter from './routes/userRoutes.js';
 import hotelRouter from './routes/hotelRoutes.js';
+import connectCloudinary from './config/cloudinary.js';
+import roomRouter from './routes/roomRoutes.js';
 
 const app = express();
 app.use(cors());
@@ -14,6 +16,7 @@ app.use(clerkMiddleware());
 
 const PORT = process.env.PORT || 3000;
 connectDB();
+connectCloudinary ();
 
 //Clerk Webhook API
 app.use("/api/clerk", handleClerkWebhook);
@@ -23,6 +26,7 @@ app.get('/', (req, res) => {
 });
 app.use('/api/user', userRouter);
 app.use('/api/hotel', hotelRouter);
+app.use('/api/room', roomRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
