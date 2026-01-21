@@ -102,25 +102,16 @@ const HotelReg = ({ isOpen, onClose }) => {
             </div>
 
             {/* Contact */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-3">
-                <label className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-500">Contact Number</label>
-                <input
-                  required
-                  type="tel"
-                  placeholder="+1 234 567 890"
-                  className="w-full px-6 py-4.5 bg-white border-2 border-gray-100 rounded-2xl focus:border-gray-900 transition-all outline-none font-bold text-gray-900 placeholder:text-gray-300 shadow-sm"
-                  value={formData.contact}
-                  onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
-                />
-              </div>
-              <div className="space-y-3">
-                <label className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-500">Property Image</label>
-                <div className="h-[58px] flex items-center justify-between px-6 py-2 bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl hover:bg-gray-100 hover:border-gray-300 transition-all cursor-pointer group">
-                  <span className="text-sm font-bold text-gray-400 group-hover:text-gray-600 transition-colors">Click to upload</span>
-                  <img src={assets.uploadArea} alt="upload" className="w-5 h-5 opacity-40 group-hover:opacity-70 transition-opacity" />
-                </div>
-              </div>
+            <div className="space-y-3">
+              <label className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-500">Contact Number</label>
+              <input
+                required
+                type="tel"
+                placeholder="+1 234 567 890"
+                className="w-full px-6 py-4.5 bg-white border-2 border-gray-100 rounded-2xl focus:border-gray-900 transition-all outline-none font-bold text-gray-900 placeholder:text-gray-300 shadow-sm"
+                value={formData.contact}
+                onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
+              />
             </div>
 
             {/* Footer Actions */}

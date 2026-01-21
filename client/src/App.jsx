@@ -16,10 +16,12 @@ import AddRoom from './pages/hotelOwner/AddRoom'
 import ListRoom from './pages/hotelOwner/ListRoom'
 import About from './pages/About'
 import Experience from './pages/Experience'
+import { useUser } from '@clerk/clerk-react'
 import { Toaster } from 'react-hot-toast'
 import { AppContext } from './context/appContext'
 
 const App = () => {
+  const { user } = useUser()
   const { userData, isOwner } = useContext(AppContext)
   const isOwnerPath = useLocation().pathname.includes("owner")
   const [isHotelRegOpen, setIsHotelRegOpen] = React.useState(false);
@@ -31,8 +33,8 @@ const App = () => {
 
       {!isOwnerPath && (
         <>
-          {/* Register Hotel Button - Only show for logged-in non-owners */}
-          {userData && !isOwner && (
+          {/* Register Hotel Button - Simplified for UI testing */}
+          {user && (
             <button
               onClick={() => setIsHotelRegOpen(true)}
               className="fixed bottom-10 right-10 z-[60] bg-black text-white px-6 py-3 rounded-full font-bold shadow-2xl hover:bg-gray-600 transition-all animate-bounce"
