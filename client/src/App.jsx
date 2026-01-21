@@ -16,6 +16,7 @@ import AddRoom from './pages/hotelOwner/AddRoom'
 import ListRoom from './pages/hotelOwner/ListRoom'
 import About from './pages/About'
 import Experience from './pages/Experience'
+import {Toaster} from 'react-hot-toast'
 
 const App = () => {
   const isOwnerPath = useLocation().pathname.includes("owner")
@@ -23,6 +24,7 @@ const App = () => {
 
   return (
     <div>
+      <Toaster />
       {!isOwnerPath && <Navbar />}
 
       {!isOwnerPath && (
