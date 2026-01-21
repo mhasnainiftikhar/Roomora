@@ -1,35 +1,63 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { roomsDummyData, assets, roomCommonData, facilityIcons } from '../assets/assets';
+import { assets, roomCommonData, facilityIcons } from '../assets/assets';
+import { AppContext } from '../context/appContext';
+import axios from 'axios';
 
 const RoomDetails = () => {
     const { id } = useParams();
+    const { toast, currency } = useContext(AppContext);
+    const [room, setRoom] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [checkIn, setCheckIn] = useState('');
     const [checkOut, setCheckOut] = useState('');
     const [guests, setGuests] = useState(1);
     const [isChecking, setIsChecking] = useState(false);
     const [availabilityChecked, setAvailabilityChecked] = useState(false);
 
-    const room = useMemo(() => {
-        return roomsDummyData.find(r => r._id === id) || roomsDummyData[0];
+    useEffect(() => {
+        fetchRoomDetails();
     }, [id]);
 
-    if (!room) return <div className="py-20 text-center">Room not found</div>;
+    const fetchRoomDetails = async () => {
+        try {
+            setLoading(true);
+            const { data } = await axios.get(`/api/room/get-room/${id}`);
+            if (data.success) {
+                setRoom(data.room);
+            } else {
+                toast.error("Room not found");
+            }
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Failed to fetch room details");
+        } finally {
+            setLoading(false);
+        }
+    };
 
-    const hotelName = room.hotel?.name || "Premium Hotel";
-    const city = room.hotel?.city || "Maldives";
-
-    const handleCheckAvailability = () => {
+    const handleCheckAvailability = async () => {
         if (!checkIn || !checkOut) {
-            alert("Please select both check-in and check-out dates.");
+            toast.error("Please select both check-in and check-out dates");
             return;
         }
         setIsChecking(true);
-        // Simulate an API call
-        setTimeout(() => {
+        try {
+            const { data } = await axios.post('/api/booking/check-availability', {
+                roomId: id,
+                checkIn,
+                checkOut
+            });
+            if (data.success && data.available) {
+                setAvailabilityChecked(true);
+                toast.success("Room is available!");
+            } else {
+                toast.error("Room is not available for selected dates");
+            }
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Failed to check availability");
+        } finally {
             setIsChecking(false);
-            setAvailabilityChecked(true);
-        }, 1500);
+        }
     };
 
     const calculateNights = () => {
@@ -41,6 +69,22 @@ const RoomDetails = () => {
     };
 
     const nights = calculateNights();
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center pt-24">
+                <div className="text-center">
+                    <div className="w-16 h-16 border-4 border-gray-200 border-t-gray-900 rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-gray-500 font-bold">Loading room details...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (!room) return <div className="py-20 text-center">Room not found</div>;
+
+    const hotelName = room.hotel?.name || "Premium Hotel";
+    const city = room.hotel?.city || "City";
 
     return (
         <div className="bg-white min-h-screen pt-24 pb-20">
@@ -64,7 +108,7 @@ const RoomDetails = () => {
                                 <div className="flex items-center gap-2">
                                     <div className="flex items-center gap-1 bg-gray-900 text-white px-2 py-0.5 rounded text-xs font-bold">
                                         <img src={assets.starIconFilled} alt="star" className="w-3 h-3 brightness-0 invert" />
-                                        {room.rating || "4.8"}
+                                        4.8
                                     </div>
                                     <span className="text-sm text-gray-500 font-semibold underline underline-offset-4 decoration-gray-300">
                                         128 reviews
@@ -72,7 +116,7 @@ const RoomDetails = () => {
                                 </div>
                                 <div className="flex items-center gap-2 text-sm text-gray-600 font-semibold">
                                     <img src={assets.locationIcon} alt="location" className="w-4 h-4 opacity-70" />
-                                    {city}, Maldives
+                                    {city}
                                 </div>
                             </div>
                         </div>
@@ -197,22 +241,22 @@ const RoomDetails = () => {
                             <h3 className="text-2xl font-bold text-gray-900 mb-8 font-playfair">Your Stay Summary</h3>
                             <div className="space-y-6 mb-10">
                                 <div className="flex justify-between text-gray-600 font-semibold text-lg">
-                                    <span>${room.pricePerNight} x {nights} nights</span>
-                                    <span>${room.pricePerNight * nights}</span>
+                                    <span>{currency}{room.pricePerNight} x {nights} nights</span>
+                                    <span>{currency}{room.pricePerNight * nights}</span>
                                 </div>
                                 {nights >= 5 && (
                                     <div className="flex justify-between text-gray-600 font-semibold text-lg">
                                         <span>Weekly discount</span>
-                                        <span className="text-green-600">-$250</span>
+                                        <span className="text-green-600">-{currency}250</span>
                                     </div>
                                 )}
                                 <div className="flex justify-between text-gray-600 font-semibold text-lg pb-6 border-b border-gray-200">
                                     <span>Service fee</span>
-                                    <span>$120</span>
+                                    <span>{currency}120</span>
                                 </div>
                                 <div className="flex justify-between text-2xl font-black text-gray-900">
                                     <span>Total Price</span>
-                                    <span>${(room.pricePerNight * nights) - (nights >= 5 ? 250 : 0) + 120}</span>
+                                    <span>{currency}{(room.pricePerNight * nights) - (nights >= 5 ? 250 : 0) + 120}</span>
                                 </div>
                             </div>
                             <p className="text-center text-sm text-gray-400 font-medium italic">
@@ -227,13 +271,11 @@ const RoomDetails = () => {
                             <div>
                                 <h2 className="text-3xl font-extrabold text-gray-900 mb-6 font-playfair">Experience the Best Stay</h2>
                                 <p className="text-gray-600 text-xl leading-relaxed max-w-2xl">
-                                    This {room.roomType.toLowerCase()} at {hotelName} offers a blend of luxury and comfort,
-                                    designed for those who appreciate the finer things. Every detail has been curated to
-                                    ensure your stay is as memorable as the destination itself.
+                                    {room.description || `This ${room.roomType.toLowerCase()} at ${hotelName} offers a blend of luxury and comfort, designed for those who appreciate the finer things.`}
                                 </p>
                             </div>
                             <div className="hidden sm:flex flex-col items-end">
-                                <span className="text-4xl font-black text-gray-900 font-playfair">${room.pricePerNight}</span>
+                                <span className="text-4xl font-black text-gray-900 font-playfair">{currency}{room.pricePerNight}</span>
                                 <span className="text-gray-400 font-bold tracking-widest uppercase text-[10px]">Per Night</span>
                             </div>
                         </div>
@@ -266,9 +308,6 @@ const RoomDetails = () => {
                                 </div>
                             ))}
                         </div>
-                        <button className="mt-12 w-full sm:w-auto px-10 py-4 border-2 border-gray-900 rounded-2xl font-bold text-sm hover:bg-gray-900 hover:text-white transition-all active:scale-95">
-                            Show all 40 amenities
-                        </button>
                     </div>
 
                     {/* Location Full Context */}
@@ -276,13 +315,13 @@ const RoomDetails = () => {
                         <div className="flex justify-between items-end mb-8">
                             <div>
                                 <h2 className="text-3xl font-bold text-gray-900 mb-2 font-playfair">Location</h2>
-                                <p className="text-gray-500 font-bold tracking-tight">{city}, Maldives</p>
+                                <p className="text-gray-500 font-bold tracking-tight">{city}</p>
                             </div>
                         </div>
                         <div className="h-[500px] w-full bg-gray-100 rounded-[3rem] overflow-hidden relative border border-gray-100 group shadow-2xl">
                             <iframe
                                 className="w-full h-full grayscale-[20%] contrast-[1.1] opacity-90 group-hover:opacity-100 transition-opacity"
-                                src={`https://maps.google.com/maps?q=${city}+Maldives&t=&z=13&ie=UTF8&iwloc=&output=embed`}
+                                src={`https://maps.google.com/maps?q=${city}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
                                 style={{ border: 0 }}
                                 allowFullScreen=""
                                 loading="lazy"

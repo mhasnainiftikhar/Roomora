@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import logo from '../assets/Vector.svg';
 import { assets } from '../assets/assets';
-import { useClerk, useUser, UserButton } from '@clerk/clerk-react';
+import { useClerk, UserButton } from '@clerk/clerk-react';
+import { useContext } from 'react';
+import { AppContext } from '../context/appContext';
 
 const BookIcon = () => (
   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -33,7 +35,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { openSignIn } = useClerk();
-  const { user } = useUser();
+  const { isOwner, userData: user } = useContext(AppContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -95,11 +97,10 @@ const Navbar = () => {
             </Link>
           ))}
 
-          {user && (
+          {user && isOwner && (
             <button
               onClick={() => navigate('/owner')}
-              className={`border px-4 py-1 text-sm rounded-full ${isScrolled ? 'text-black' : 'text-white'
-                }`}
+              className={`border px-4 py-1 text-sm rounded-full ${isScrolled ? 'text-black border-black' : 'text-white border-white'}`}
             >
               Dashboard
             </button>
@@ -187,12 +188,17 @@ const Navbar = () => {
 
         {/* Actions */}
         {user ? (
-          <button
-            onClick={() => navigate('/owner')}
-            className="border px-6 py-2 rounded-full text-sm"
-          >
-            Dashboard
-          </button>
+          isOwner && (
+            <button
+              onClick={() => {
+                navigate('/owner');
+                setIsMenuOpen(false);
+              }}
+              className="border border-black px-6 py-2 rounded-full text-sm"
+            >
+              Dashboard
+            </button>
+          )
         ) : (
           <button
             onClick={openSignIn}

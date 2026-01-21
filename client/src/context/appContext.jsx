@@ -54,6 +54,29 @@ export const AppProvider = ({ children }) => {
         }
     }
 
+    const registerHotel = async (hotelData) => {
+        try {
+            const token = await getToken();
+            const { data } = await axios.post('/api/hotel', hotelData, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (data.success) {
+                toast.success(data.message);
+                await fetchUserData(); // Refresh user data to update role
+                setShowHotelReg(false);
+                navigate('/owner');
+                return true;
+            } else {
+                toast.error(data.message || "Registration failed");
+                return false;
+            }
+        } catch (error) {
+            console.error("Error registering hotel:", error);
+            toast.error(error.response?.data?.message || "Registration failed");
+            return false;
+        }
+    }
+
     useEffect(() => {
         getRoomsData();
     }, []);
@@ -76,12 +99,14 @@ export const AppProvider = ({ children }) => {
         setUserData,
         getRoomsData,
         fetchUserData,
+        registerHotel,
         isOwner,
         setIsOwner,
         showHotelReg,
         setShowHotelReg,
         navigate,
-        toast
+        toast,
+        getToken
     }
 
     return (

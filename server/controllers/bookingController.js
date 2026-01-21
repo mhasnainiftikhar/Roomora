@@ -37,7 +37,7 @@ export const checkRoomAvailabilityAPI = async (req, res) => {
 export const createBooking = async (req, res) => {
     try {
         const { room: roomId, hotel, checkInDate, checkOutDate, guests, paymentMethod } = req.body;
-        const user = req.auth.userId;
+        const user = req.auth().userId;
 
         const isAvailable = await checkAvailability(checkInDate, checkOutDate, roomId);
         if (!isAvailable) {
@@ -76,7 +76,7 @@ export const createBooking = async (req, res) => {
 // Get User Bookings
 export const getUserBookings = async (req, res) => {
     try {
-        const userId = req.auth.userId;
+        const userId = req.auth().userId;
         const bookings = await Booking.find({ user: userId })
             .populate("room")
             .populate("hotel")

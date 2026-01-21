@@ -9,6 +9,7 @@ import hotelRouter from './routes/hotelRoutes.js';
 import connectCloudinary from './config/cloudinary.js';
 import roomRouter from './routes/roomRoutes.js';
 import bookingRouter from './routes/bookingRoutes.js';
+import dashboardRouter from './routes/dashboardRoutes.js';
 
 const app = express();
 app.use(cors());
@@ -29,6 +30,7 @@ app.use('/api/user', userRouter);
 app.use('/api/hotel', hotelRouter);
 app.use('/api/room', roomRouter);
 app.use('/api/booking', bookingRouter);
+app.use('/api/dashboard', dashboardRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

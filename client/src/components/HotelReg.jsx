@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { assets } from '../assets/assets';
+import { AppContext } from '../context/appContext';
 
 const HotelReg = ({ isOpen, onClose }) => {
+  const { registerHotel } = useContext(AppContext);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     city: '',
@@ -11,10 +14,14 @@ const HotelReg = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Hotel Registered:", formData);
-    onClose();
+    setLoading(true);
+    const success = await registerHotel(formData);
+    setLoading(false);
+    if (success) {
+      onClose();
+    }
   };
 
   return (
@@ -127,9 +134,10 @@ const HotelReg = ({ isOpen, onClose }) => {
               </button>
               <button
                 type="submit"
-                className="bg-gray-900 text-white px-12 py-5 rounded-3xl font-black text-sm uppercase tracking-[0.2em] hover:bg-gray-700 hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-95 shadow-xl shadow-gray-200"
+                disabled={loading}
+                className="bg-gray-900 text-white px-12 py-5 rounded-3xl font-black text-sm uppercase tracking-[0.2em] hover:bg-gray-700 hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-95 disabled:bg-gray-400 shadow-xl shadow-gray-200"
               >
-                Register
+                {loading ? "Registering..." : "Register"}
               </button>
             </div>
           </form>

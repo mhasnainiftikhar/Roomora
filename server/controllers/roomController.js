@@ -5,8 +5,8 @@ import { v2 as cloudinary } from "cloudinary";
 //Api to create a room
 export const createRoom = async (req, res) => {
     try {
-        const { roomType, pricePerNight, amenities } = req.body;
-        const hotel = await Hotel.findOne({ owner: req.auth.userId });
+        const { roomType, pricePerNight, amenities, description } = req.body;
+        const hotel = await Hotel.findOne({ owner: req.auth().userId });
 
         if (!hotel) {
             return res.status(400).json({ success: false, message: "No hotel found for this owner" });
@@ -25,6 +25,7 @@ export const createRoom = async (req, res) => {
             roomType,
             pricePerNight: Number(pricePerNight),
             amenities: JSON.parse(amenities),
+            description,
             images,
         });
 
@@ -38,17 +39,34 @@ export const createRoom = async (req, res) => {
 //Api to get all rooms (Public)
 export const getRooms = async (req, res) => {
     try {
-        const rooms = (await Room.find({ isAvailable: true }).populate({ path: 'hotel',populate: { path: 'owner', select: 'images' } })).toSorted({ createdAt: -1 });
+        const rooms = await Room.find({ isAvailable: true })
+            .populate({ path: 'hotel', populate: { path: 'owner', select: 'images' } })
+            .sort({ createdAt: -1 });
         res.status(200).json({ success: true, rooms });
     } catch (error) {
+        console.error("Error in getRooms:", error);
         res.status(500).json({ success: false, message: "Failed to fetch rooms" });
+    }
+};
+
+//Api to get a single room by ID (Public)
+export const getRoomById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const room = await Room.findById(id).populate({ path: 'hotel', populate: { path: 'owner' } });
+        if (!room) {
+            return res.status(404).json({ success: false, message: "Room not found" });
+        }
+        res.status(200).json({ success: true, room });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Failed to fetch room details" });
     }
 };
 
 //api to get rooms of an owner
 export const getOwnerRooms = async (req, res) => {
     try {
-        const hotel = await Hotel.findOne({ owner: req.auth.userId });
+        const hotel = await Hotel.findOne({ owner: req.auth().userId });
         if (!hotel) {
             return res.status(404).json({ success: false, message: "Hotel not found" });
         }

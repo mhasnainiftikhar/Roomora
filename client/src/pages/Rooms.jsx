@@ -1,8 +1,10 @@
-import React, { useState, useMemo } from 'react';
-import { roomsDummyData, assets } from '../assets/assets';
+import React, { useState, useMemo, useContext } from 'react';
+import { assets } from '../assets/assets';
 import HotelCardList from '../components/HotelCardList';
+import { AppContext } from '../context/appContext';
 
 const Rooms = () => {
+    const { rooms } = useContext(AppContext);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedType, setSelectedType] = useState('All');
     const [maxPrice, setMaxPrice] = useState(1000);
@@ -12,16 +14,18 @@ const Rooms = () => {
     const allAmenities = ['Free WiFi', 'Free Breakfast', 'Room Service', 'Mountain View', 'Pool Access'];
 
     const filteredRooms = useMemo(() => {
-        return roomsDummyData.filter(room => {
-            const matchesSearch = room.hotel.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                room.hotel.city.toLowerCase().includes(searchQuery.toLowerCase());
+        return rooms.filter(room => {
+            const hotelName = room.hotel?.name || '';
+            const city = room.hotel?.city || '';
+            const matchesSearch = hotelName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                city.toLowerCase().includes(searchQuery.toLowerCase());
             const matchesType = selectedType === 'All' || room.roomType === selectedType;
             const matchesPrice = room.pricePerNight <= maxPrice;
             const matchesAmenities = selectedAmenities.every(amenity => room.amenities.includes(amenity));
 
             return matchesSearch && matchesType && matchesPrice && matchesAmenities;
         });
-    }, [searchQuery, selectedType, maxPrice, selectedAmenities]);
+    }, [rooms, searchQuery, selectedType, maxPrice, selectedAmenities]);
 
     const toggleAmenity = (amenity) => {
         setSelectedAmenities(prev =>

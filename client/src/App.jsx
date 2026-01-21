@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Navbar from './components/Navbar'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
@@ -16,9 +16,11 @@ import AddRoom from './pages/hotelOwner/AddRoom'
 import ListRoom from './pages/hotelOwner/ListRoom'
 import About from './pages/About'
 import Experience from './pages/Experience'
-import {Toaster} from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
+import { AppContext } from './context/appContext'
 
 const App = () => {
+  const { userData, isOwner } = useContext(AppContext)
   const isOwnerPath = useLocation().pathname.includes("owner")
   const [isHotelRegOpen, setIsHotelRegOpen] = React.useState(false);
 
@@ -29,13 +31,15 @@ const App = () => {
 
       {!isOwnerPath && (
         <>
-          {/* Temporary Test Button for HotelReg Modal */}
-          <button
-            onClick={() => setIsHotelRegOpen(true)}
-            className="fixed bottom-10 right-10 z-[60] bg-black text-white px-6 py-3 rounded-full font-bold shadow-2xl hover:bg-gray-600 transition-all animate-bounce"
-          >
-            Register Your Hotel
-          </button>
+          {/* Register Hotel Button - Only show for logged-in non-owners */}
+          {userData && !isOwner && (
+            <button
+              onClick={() => setIsHotelRegOpen(true)}
+              className="fixed bottom-10 right-10 z-[60] bg-black text-white px-6 py-3 rounded-full font-bold shadow-2xl hover:bg-gray-600 transition-all animate-bounce"
+            >
+              Register Your Hotel
+            </button>
+          )}
 
           <HotelReg isOpen={isHotelRegOpen} onClose={() => setIsHotelRegOpen(false)} />
         </>
