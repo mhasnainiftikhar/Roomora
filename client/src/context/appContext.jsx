@@ -1,15 +1,15 @@
 import axios from 'axios';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser, useAuth } from '@clerk/clerk-react';
 import toast from 'react-hot-toast';
 
+// Configure axios baseURL once, outside the component
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-
     const currency = import.meta.env.VITE_CURRENCY || '$';
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -34,9 +34,10 @@ export const AppProvider = ({ children }) => {
             console.error("Error fetching rooms:", error);
             toast.error(error.response?.data?.message || "Failed to fetch rooms");
         }
-    }
+    };
 
-    const fetchUserData = async () => {
+    // Use useCallback to memoize fetchUserData
+    const fetchUserData = useCallback(async () => {
         try {
             const token = await getToken();
             const { data } = await axios.get('/api/user', {
@@ -52,7 +53,7 @@ export const AppProvider = ({ children }) => {
             console.error("Error fetching user data:", error);
             toast.error(error.response?.data?.message || "Failed to fetch user data");
         }
-    }
+    }, [getToken]);
 
     const registerHotel = async (hotelData) => {
         try {
@@ -62,7 +63,7 @@ export const AppProvider = ({ children }) => {
             });
             if (data.success) {
                 toast.success(data.message);
-                await fetchUserData(); // Refresh user data to update role
+                await fetchUserData();
                 setShowHotelReg(false);
                 navigate('/owner');
                 return true;
@@ -75,7 +76,7 @@ export const AppProvider = ({ children }) => {
             toast.error(error.response?.data?.message || "Registration failed");
             return false;
         }
-    }
+    };
 
     useEffect(() => {
         getRoomsData();
@@ -88,7 +89,7 @@ export const AppProvider = ({ children }) => {
             setUserData(false);
             setIsOwner(false);
         }
-    }, [user]);
+    }, [user, fetchUserData]);
 
     const value = {
         currency,
@@ -107,7 +108,7 @@ export const AppProvider = ({ children }) => {
         navigate,
         toast,
         getToken
-    }
+    };
 
     return (
         <AppContext.Provider value={value}>
