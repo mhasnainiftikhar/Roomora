@@ -88,6 +88,15 @@ export const cities = [
     "London",
 ];
 
+export const roomTypes = [
+    'Single Bed',
+    'Double Bed',
+    'Suite',
+    'Deluxe',
+    'Studio',
+    'Penthouse'
+];
+
 // Exclusive Offers Dummy Data
 export const exclusiveOffers = [
     { _id: 1, title: "Summer Escape Package", description: "Enjoy a complimentary night and daily breakfast", priceOff: 25, expiryDate: "Aug 31", image: exclusiveOfferCardImg1 },

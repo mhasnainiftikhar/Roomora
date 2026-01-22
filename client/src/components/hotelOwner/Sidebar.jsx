@@ -10,29 +10,32 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 bg-white border-r border-gray-100 hidden md:flex flex-col h-[calc(100vh-80px)] sticky top-20">
-      <div className="flex-1 py-10 px-6 space-y-2">
+    <aside className="w-72 bg-white border-r border-gray-100 hidden md:flex flex-col h-[calc(100vh-80px)] sticky top-20">
+      <div className="flex-1 py-12 px-6 space-y-3">
         {sidebarLinks.map((link) => (
           <NavLink
             key={link.name}
             to={link.path}
             end={link.path === '/owner'}
             className={({ isActive }) => `
-              flex items-center gap-4 px-6 py-4 rounded-2xl font-bold text-sm transition-all duration-300 group
+              relative flex items-center gap-4 px-6 py-4 rounded-2xl font-bold text-[13px] transition-all duration-500 overflow-hidden group
               ${isActive
-                ? 'bg-gray-900 text-white shadow-xl shadow-gray-200 translate-x-1'
-                : 'text-gray-400 hover:text-gray-900 hover:bg-gray-50'
+                ? 'bg-gradient-to-r from-gray-900 to-gray-800 text-white shadow-[0_10px_30px_-10px_rgba(0,0,0,0.3)] translate-x-2'
+                : 'text-gray-400 hover:text-gray-900 hover:bg-gray-50 hover:translate-x-1'
               }
             `}
           >
             {({ isActive }) => (
               <>
+                {/* Active Indicator Bar */}
+                <div className={`absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-6 bg-orange-500 rounded-r-full transition-all duration-500 ${isActive ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'}`} />
+
                 <img
                   src={link.icon}
                   alt={link.name}
-                  className={`w-5 h-5 transition-all ${isActive ? 'brightness-0 invert' : 'opacity-40 group-hover:opacity-100'}`}
+                  className={`w-5 h-5 transition-all duration-500 ${isActive ? 'brightness-0 invert scale-110' : 'opacity-40 group-hover:opacity-100 group-hover:scale-110'}`}
                 />
-                {link.name}
+                <span className="relative z-10">{link.name}</span>
               </>
             )}
           </NavLink>

@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useContext } from 'react';
-import { assets } from '../assets/assets';
+import { assets, roomTypes } from '../assets/assets';
 import HotelCardList from '../components/HotelCardList';
 import { AppContext } from '../context/appContext';
 
@@ -10,7 +10,7 @@ const Rooms = () => {
     const [maxPrice, setMaxPrice] = useState(1000);
     const [selectedAmenities, setSelectedAmenities] = useState([]);
 
-    const roomTypes = ['All', 'Single Bed', 'Double Bed', 'Suite', 'Deluxe'];
+    const allRoomTypes = ['All', ...roomTypes];
     const allAmenities = ['Free WiFi', 'Free Breakfast', 'Room Service', 'Mountain View', 'Pool Access'];
 
     const filteredRooms = useMemo(() => {
@@ -105,7 +105,7 @@ const Rooms = () => {
                         <div className="mb-8">
                             <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">Property Type</label>
                             <div className="flex flex-wrap gap-2">
-                                {roomTypes.map(type => (
+                                {allRoomTypes.map(type => (
                                     <button
                                         key={type}
                                         onClick={() => setSelectedType(type)}
