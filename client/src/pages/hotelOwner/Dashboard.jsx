@@ -76,46 +76,63 @@ const Dashboard = () => {
         ))}
       </div>
 
-      <div className="bg-white rounded-[3rem] border border-gray-100 shadow-sm overflow-hidden">
-        <div className="px-10 py-8 border-b border-gray-50 flex items-center justify-between">
-          <h2 className="text-xl font-black text-gray-900 font-playfair">Recent Reservations</h2>
-          <button className="text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-gray-900 transition-colors">View All</button>
+      <div className="bg-white rounded-[4rem] border border-gray-100 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.03)] overflow-hidden">
+        <div className="px-10 py-8 border-b border-gray-50 bg-gray-50/10 flex items-center justify-between">
+          <h2 className="text-xl font-black text-gray-900 font-playfair">Reservations Directory</h2>
+          <div className="bg-orange-50 px-4 py-1.5 rounded-full">
+            <p className="text-[10px] font-black uppercase tracking-widest text-orange-600">Live Updates</p>
+          </div>
         </div>
 
         {recentBookings.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="bg-gray-50/50">
-                  <th className="px-10 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Guest</th>
-                  <th className="px-10 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Check In</th>
-                  <th className="px-10 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Room</th>
-                  <th className="px-10 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Total</th>
+                <tr className="bg-gray-50/30">
+                  <th className="px-10 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Guest Perspective</th>
+                  <th className="px-10 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Duration</th>
+                  <th className="px-10 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Suite</th>
+                  <th className="px-10 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Investment</th>
                   <th className="px-10 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Status</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
                 {recentBookings.map((booking) => (
-                  <tr key={booking._id} className="hover:bg-gray-50/30 transition-colors group">
+                  <tr key={booking._id} className="hover:bg-gray-50/50 transition-all duration-300 group">
                     <td className="px-10 py-8">
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-2xl bg-gray-100 overflow-hidden flex items-center justify-center border-2 border-white shadow-sm group-hover:scale-105 transition-transform">
                           {booking.user?.image ? (
                             <img src={booking.user.image} alt={booking.user.username} className="w-full h-full object-cover" />
                           ) : (
-                            <span className="text-gray-500 font-bold text-sm">{booking.user?.username?.charAt(0).toUpperCase()}</span>
+                            <span className="text-gray-400 font-extrabold text-lg">{booking.user?.username?.charAt(0).toUpperCase()}</span>
                           )}
                         </div>
-                        <p className="font-bold text-gray-900">{booking.user?.username || 'Guest'}</p>
+                        <div>
+                          <p className="font-extrabold text-gray-900">{booking.user?.username || 'Guest'}</p>
+                          <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">ID: {booking._id.slice(-6).toUpperCase()}</p>
+                        </div>
                       </div>
                     </td>
-                    <td className="px-10 py-8 text-sm font-bold text-gray-500">
-                      {new Date(booking.checkInDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                    </td>
-                    <td className="px-10 py-8 text-sm font-bold text-gray-900">{booking.room?.roomType || 'N/A'}</td>
-                    <td className="px-10 py-8 font-black text-gray-900">{currency}{booking.totalPrice}</td>
                     <td className="px-10 py-8">
-                      <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${booking.status === 'completed' ? 'bg-green-50 text-green-600' :
+                      <div className="space-y-1">
+                        <p className="text-sm font-black text-gray-900">
+                          {new Date(booking.checkInDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {new Date(booking.checkOutDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                        </p>
+                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none">
+                          {Math.ceil((new Date(booking.checkOutDate) - new Date(booking.checkInDate)) / (1000 * 60 * 60 * 24))} Nights
+                        </p>
+                      </div>
+                    </td>
+                    <td className="px-10 py-8">
+                      <span className="text-sm font-black text-gray-900 uppercase tracking-tight">{booking.room?.roomType || 'Standard'}</span>
+                    </td>
+                    <td className="px-10 py-8">
+                      <p className="text-lg font-black text-gray-900">{currency}{booking.totalPrice.toLocaleString()}</p>
+                      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest italic leading-none">{booking.paymentMethod}</p>
+                    </td>
+                    <td className="px-10 py-8">
+                      <span className={`px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest ${booking.status === 'confirmed' ? 'bg-green-50 text-green-600' :
                           booking.status === 'pending' ? 'bg-orange-50 text-orange-600' :
                             'bg-blue-50 text-blue-600'
                         }`}>
@@ -128,14 +145,14 @@ const Dashboard = () => {
             </table>
           </div>
         ) : (
-          <div className="text-center py-16 px-10">
-            <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="text-center py-24 px-10">
+            <div className="w-20 h-20 bg-gray-50 rounded-[2rem] flex items-center justify-center mx-auto mb-6 group hover:bg-gray-900 transition-colors duration-500">
+              <svg className="w-8 h-8 text-gray-300 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
             </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2">No bookings yet</h3>
-            <p className="text-gray-500 text-sm">Your recent reservations will appear here once guests start booking.</p>
+            <h3 className="text-xl font-black text-gray-900 mb-2 font-playfair uppercase tracking-tight">No active reservations</h3>
+            <p className="text-gray-400 font-bold text-sm max-w-xs mx-auto leading-relaxed uppercase tracking-widest">Your guest history is currently empty. Once reservations begin, they will populate here.</p>
           </div>
         )}
       </div>
