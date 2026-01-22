@@ -1,36 +1,39 @@
 import Booking from "../models/Booking.js";
 import Room from "../models/room.js";
 import Hotel from "../models/Hotel.js";
-import transporter from "../config/nodemailer.js";
 import { clerkClient } from "@clerk/clerk-sdk-node";
+import { sendEmail } from "../config/nodemailer.js"; 
 
-//Notify User via Email
+// Send Booking Confirmation Email using Brevo API
 const sendBookingConfirmationEmail = async ({ to, booking, room, hotel }) => {
   try {
-    await transporter.sendMail({
-      from: `"Roomora" <${process.env.SMTP_USER}>`,
-      to,
-      subject: "🏨 Booking Confirmed – Roomora",
-      html: `
-                <h2>Booking Confirmation</h2>
-                <p>Your booking has been <strong>successfully confirmed</strong>.</p>
+    const subject = "🏨 Booking Confirmed – Roomora";
+    
+    const htmlContent = `
+      <h2>Booking Confirmation</h2>
+      <p>Your booking has been <strong>successfully confirmed</strong>.</p>
 
-                <h3>Booking Details</h3>
-                <ul>
-                    <li><strong>Hotel:</strong> ${hotel.name}</li>
-                    <li><strong>Room:</strong> ${room.title}</li>
-                    <li><strong>Check-in:</strong> ${new Date(booking.checkInDate).toDateString()}</li>
-                    <li><strong>Check-out:</strong> ${new Date(booking.checkOutDate).toDateString()}</li>
-                    <li><strong>Guests:</strong> ${booking.guests}</li>
-                    <li><strong>Total Price:</strong> $${booking.totalPrice}</li>
-                    <li><strong>Payment:</strong> ${booking.paymentMethod}</li>
-                </ul>
+      <h3>Booking Details</h3>
+      <ul>
+        <li><strong>Hotel:</strong> ${hotel.name}</li>
+        <li><strong>Room:</strong> ${room.title}</li>
+        <li><strong>Check-in:</strong> ${new Date(booking.checkInDate).toDateString()}</li>
+        <li><strong>Check-out:</strong> ${new Date(booking.checkOutDate).toDateString()}</li>
+        <li><strong>Guests:</strong> ${booking.guests}</li>
+        <li><strong>Total Price:</strong> $${booking.totalPrice}</li>
+        <li><strong>Payment:</strong> ${booking.paymentMethod}</li>
+      </ul>
 
-                <p>Thank you for choosing <strong>Roomora</strong> 🌟</p>
-            `,
-    });
+      <p>Thank you for choosing <strong>Roomora</strong> 🌟</p>
+    `;
+
+    // Use your Brevo API function
+    await sendEmail(to, subject, htmlContent);
+    
+    console.log(' Booking confirmation email sent to:', to);
   } catch (error) {
-    console.error("Email sending failed:", error.message);
+    console.error(" Email sending failed:", error.message);
+    throw error;
   }
 };
 
@@ -204,4 +207,4 @@ export const getHotelBookings = async (req, res) => {
     console.error("Error fetching hotel bookings:", error);
     res.status(500).json({ success: false, message: "Server Error" });
   }
-};
+}

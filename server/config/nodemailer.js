@@ -1,13 +1,29 @@
-import nodemailer from 'nodemailer';
 
-const transporter = nodemailer.createTransport({
-  host: "smtp-relay.brevo.com",
-  port: 587,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+import brevo from "@getbrevo/brevo";
 
+export const sendEmail = async (toEmail, subject, htmlContent) => {
+  try {
+    const apiInstance = new brevo.TransactionalEmailsApi();
 
-export default transporter;
+    apiInstance.setApiKey(
+      brevo.TransactionalEmailsApiApiKeys.apiKey,
+      process.env.BREVO_API_KEY
+    );
+
+    const emailData = {
+      sender: {
+        email: "hasnainiftikhar930@gmail.com",
+        name: "Roomora", 
+      },
+      to: [{ email: toEmail }],
+      subject,
+      htmlContent,
+    };
+
+    await apiInstance.sendTransacEmail(emailData);
+    console.log(' Brevo API email sent successfully');
+  } catch (error) {
+    console.error("Brevo Email Error:", error?.response?.data || error.message);
+    throw error;
+  }
+};
