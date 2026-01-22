@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { assets } from "../assets/assets"
 
 const HotelCardList = ({ room }) => {
+    const [searchParams] = useSearchParams();
     const hotelName = room?.hotel?.name || "Premium Hotel";
     const mainImage = room?.images?.[0] || assets.regImage;
     const price = room?.price || room?.pricePerNight || "150";
@@ -12,7 +13,7 @@ const HotelCardList = ({ room }) => {
 
     return (
         <Link
-            to={"/room/" + room?._id}
+            to={`/room/${room?._id}?${searchParams.toString()}`}
             onClick={() => window.scrollTo(0, 0)}
             className="group flex flex-col md:flex-row bg-white rounded-[2rem] overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
         >

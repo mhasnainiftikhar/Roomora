@@ -1,18 +1,25 @@
-import React, { useMemo, useState, useEffect, useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState, useEffect, useMemo, useContext } from 'react';
+import { useNavigate, useParams, Link, useSearchParams } from 'react-router-dom';
 import { assets, roomCommonData, facilityIcons } from '../assets/assets';
 import { AppContext } from '../context/appContext';
 import axios from 'axios';
 
 const RoomDetails = () => {
     const { id } = useParams();
-    const { toast, currency } = useContext(AppContext);
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const { toast, currency, getToken } = useContext(AppContext);
+
     const [room, setRoom] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [checkIn, setCheckIn] = useState('');
-    const [checkOut, setCheckOut] = useState('');
-    const [guests, setGuests] = useState(1);
+
+    // Ingest parameters from URL if present
+    const [checkIn, setCheckIn] = useState(searchParams.get('checkIn') || '');
+    const [checkOut, setCheckOut] = useState(searchParams.get('checkOut') || '');
+    const [guests, setGuests] = useState(parseInt(searchParams.get('guests')) || 1);
+
     const [isChecking, setIsChecking] = useState(false);
+    const [isReserving, setIsReserving] = useState(false);
     const [availabilityChecked, setAvailabilityChecked] = useState(false);
 
     useEffect(() => {
@@ -44,8 +51,8 @@ const RoomDetails = () => {
         try {
             const { data } = await axios.post('/api/booking/check-availability', {
                 roomId: id,
-                checkIn,
-                checkOut
+                checkInDate: checkIn,
+                checkOutDate: checkOut
             });
             if (data.success && data.available) {
                 setAvailabilityChecked(true);
@@ -57,6 +64,32 @@ const RoomDetails = () => {
             toast.error(error.response?.data?.message || "Failed to check availability");
         } finally {
             setIsChecking(false);
+        }
+    };
+
+    const handleReserveNow = async () => {
+        try {
+            setIsReserving(true);
+            const token = await getToken();
+            const { data } = await axios.post('/api/booking/create', {
+                room: id,
+                hotel: room.hotel?._id,
+                checkInDate: checkIn,
+                checkOutDate: checkOut,
+                guests,
+                paymentMethod: 'Pay At Hotel' // Default for now
+            }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            if (data.success) {
+                toast.success(data.message);
+                navigate('/my-bookings');
+            }
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Reservation failed");
+        } finally {
+            setIsReserving(false);
         }
     };
 
@@ -226,8 +259,12 @@ const RoomDetails = () => {
                                 </div>
                                 <p className="text-sm font-bold text-green-700 whitespace-nowrap">Available!</p>
                             </div>
-                            <button className="w-full md:w-[200px] bg-gray-900 text-white py-5 rounded-3xl font-bold text-lg hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-95 shadow-xl shadow-gray-200">
-                                Reserve Now
+                            <button
+                                onClick={handleReserveNow}
+                                disabled={isReserving}
+                                className="w-full md:w-[200px] bg-gray-900 text-white py-5 rounded-3xl font-bold text-lg hover:shadow-2xl hover:-translate-y-1 transition-all active:scale-95 shadow-xl shadow-gray-200 disabled:opacity-70"
+                            >
+                                {isReserving ? 'Reserving...' : 'Reserve Now'}
                             </button>
                         </div>
                     )}

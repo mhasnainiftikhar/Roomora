@@ -1,8 +1,46 @@
-import React from 'react';
-import { userBookingsDummyData, assets } from '../assets/assets';
+import React, { useState, useEffect, useContext } from 'react';
+import { assets } from '../assets/assets';
 import { Link } from 'react-router-dom';
+import { AppContext } from '../context/appContext';
+import axios from 'axios';
 
 const MyBookings = () => {
+    const { getToken, currency, toast } = useContext(AppContext);
+    const [bookings, setBookings] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchUserBookings = async () => {
+        try {
+            setLoading(true);
+            const token = await getToken();
+            const { data } = await axios.get('/api/booking/user', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (data.success) {
+                setBookings(data.bookings);
+            }
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Failed to fetch bookings");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchUserBookings();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center pt-24">
+                <div className="text-center">
+                    <div className="w-16 h-16 border-4 border-gray-200 border-t-gray-900 rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-gray-500 font-bold">Loading your luxury stays...</p>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mt-20">
             <div className="mb-12">
@@ -14,9 +52,9 @@ const MyBookings = () => {
                 </p>
             </div>
 
-            {userBookingsDummyData.length > 0 ? (
+            {bookings.length > 0 ? (
                 <div className="grid grid-cols-1 gap-8">
-                    {userBookingsDummyData.map((booking) => (
+                    {bookings.map((booking) => (
                         <div
                             key={booking._id}
                             className="bg-white border border-gray-100 rounded-[2.5rem] p-6 md:p-8 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden group"
@@ -74,11 +112,11 @@ const MyBookings = () => {
                                             </p>
                                         </div>
                                         <div>
-                                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Guests</p>
+                                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Guests</p>
                                             <p className="text-sm font-black text-gray-900">{booking.guests} {booking.guests > 1 ? 'Adults' : 'Adult'}</p>
                                         </div>
                                         <div>
-                                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Payment</p>
+                                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Payment</p>
                                             <p className="text-sm font-black text-gray-900">{booking.paymentMethod}</p>
                                         </div>
                                     </div>
@@ -86,7 +124,7 @@ const MyBookings = () => {
                                     <div className="flex flex-col sm:flex-row justify-between items-center mt-6 gap-6">
                                         <div className="text-center sm:text-left">
                                             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Total Amount</span>
-                                            <p className="text-2xl font-black text-gray-900">${booking.totalPrice}</p>
+                                            <p className="text-2xl font-black text-gray-900">{currency}{booking.totalPrice}</p>
                                         </div>
                                         <div className="flex gap-4 w-full sm:w-auto">
                                             {!booking.isPaid && (

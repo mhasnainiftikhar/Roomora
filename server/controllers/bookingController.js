@@ -1,16 +1,25 @@
 import Booking from "../models/Booking.js";
 import Room from "../models/room.js";
+import Hotel from "../models/Hotel.js";
 
 // Helper function to check Availability
 export const checkAvailability = async (checkInDate, checkOutDate, roomId) => {
     try {
+        const checkIn = new Date(checkInDate);
+        const checkOut = new Date(checkOutDate);
+
+        if (isNaN(checkIn.getTime()) || isNaN(checkOut.getTime())) {
+            console.error("Invalid dates provided:", { checkInDate, checkOutDate });
+            return false;
+        }
+
         const bookings = await Booking.find({
             room: roomId,
             status: { $ne: "cancelled" },
             $or: [
                 {
-                    checkInDate: { $lt: new Date(checkOutDate) },
-                    checkOutDate: { $gt: new Date(checkInDate) },
+                    checkInDate: { $lt: checkOut },
+                    checkOutDate: { $gt: checkIn },
                 }
             ]
         });
@@ -36,8 +45,14 @@ export const checkRoomAvailabilityAPI = async (req, res) => {
 // Create Booking
 export const createBooking = async (req, res) => {
     try {
-        const { room: roomId, hotel, checkInDate, checkOutDate, guests, paymentMethod } = req.body;
+        const { room: roomId, hotel: hotelId, checkInDate, checkOutDate, guests, paymentMethod } = req.body;
         const user = req.auth().userId;
+
+        // Check if the user is the owner of the hotel
+        const hotelData = await Hotel.findById(hotelId);
+        if (hotelData && hotelData.owner === user) {
+            return res.status(403).json({ success: false, message: "Owners cannot book their own property rooms." });
+        }
 
         const isAvailable = await checkAvailability(checkInDate, checkOutDate, roomId);
         if (!isAvailable) {

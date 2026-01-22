@@ -1,17 +1,26 @@
-import React, { useState, useMemo, useContext } from 'react';
+import React, { useState, useMemo, useContext, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { assets, roomTypes } from '../assets/assets';
 import HotelCardList from '../components/HotelCardList';
 import { AppContext } from '../context/appContext';
 
 const Rooms = () => {
     const { rooms } = useContext(AppContext);
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchParams] = useSearchParams();
+    const [searchQuery, setSearchQuery] = useState(searchParams.get('location') || '');
     const [selectedType, setSelectedType] = useState('All');
     const [maxPrice, setMaxPrice] = useState(1000);
     const [selectedAmenities, setSelectedAmenities] = useState([]);
 
     const allRoomTypes = ['All', ...roomTypes];
     const allAmenities = ['Free WiFi', 'Free Breakfast', 'Room Service', 'Mountain View', 'Pool Access'];
+
+    useEffect(() => {
+        const location = searchParams.get('location');
+        if (location) {
+            setSearchQuery(location);
+        }
+    }, [searchParams]);
 
     const filteredRooms = useMemo(() => {
         return rooms.filter(room => {
