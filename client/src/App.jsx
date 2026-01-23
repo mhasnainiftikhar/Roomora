@@ -22,6 +22,10 @@ import SafetyInformation from './pages/SafetyInformation'
 import CancellationPolicy from './pages/CancellationPolicy'
 import CovidResponse from './pages/CovidResponse'
 import ReportConcern from './pages/ReportConcern'
+import Careers from './pages/Careers'
+import LatestNews from './pages/LatestNews'
+import Investors from './pages/Investors'
+import RoomOraPlus from './pages/RoomOraPlus'
 import { useUser } from '@clerk/clerk-react'
 import { Toaster } from 'react-hot-toast'
 import { AppContext } from './context/appContext'
@@ -72,6 +76,10 @@ const App = () => {
           <Route path='/cancellation-policy' element={<CancellationPolicy />} />
           <Route path='/covid-response' element={<CovidResponse />} />
           <Route path='/report-concern' element={<ReportConcern />} />
+          <Route path='/careers' element={<Careers />} />
+          <Route path='/news' element={<LatestNews />} />
+          <Route path='/investors' element={<Investors />} />
+          <Route path='/plus' element={<RoomOraPlus />} />
 
           <Route path='/owner' element={<Layout />}>
             <Route index element={<Dashboard />} />

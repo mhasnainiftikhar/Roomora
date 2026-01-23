@@ -43,7 +43,7 @@ export const AppProvider = ({ children }) => {
             console.error("Error fetching rooms:", error);
             toast.error(error.response?.data?.message || "Failed to fetch rooms");
         }
-    }, []); // No dependencies needed
+    }, []); 
 
     const fetchUserData = useCallback(async () => {
         try {

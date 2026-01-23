@@ -52,25 +52,24 @@ const Footer = () => {
                         <h4 className="text-gray-900 font-bold mb-6 text-lg">Company</h4>
                         <ul className="flex flex-col gap-4">
                             <li><Link to="/about" className="text-gray-500 hover:text-gray-900 transition-colors">About Us</Link></li>
-                            {['Careers', 'Latest News', 'Investors', 'RoomOra Plus'].map((item) => (
-                                <li key={item}>
-                                    <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors">{item}</a>
-                                </li>
-                            ))}
+                            <li><Link to="/careers" className="text-gray-500 hover:text-gray-900 transition-colors">Careers</Link></li>
+                            <li><Link to="/news" className="text-gray-500 hover:text-gray-900 transition-colors">Latest News</Link></li>
+                            <li><Link to="/investors" className="text-gray-500 hover:text-gray-900 transition-colors">Investors</Link></li>
+                            <li><Link to="/plus" className="text-gray-500 hover:text-gray-900 transition-colors">RoomOra Plus</Link></li>
                         </ul>
                     </div>
                 </div>
+            </div>
 
-                {/* Bottom Bar */}
-                <div className="pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <p className="text-gray-500 text-sm">
-                        © {new Date().getFullYear()} RoomOra. All rights reserved.
-                    </p>
-                    <div className="flex gap-8 text-sm text-gray-500">
-                        <Link to="/privacy" className="hover:text-gray-900 uppercase tracking-tighter font-bold">Privacy Policy</Link>
-                        <Link to="/terms" className="hover:text-gray-900 uppercase tracking-tighter font-bold">Terms of Service</Link>
-                        <Link to="/cookies" className="hover:text-gray-900 uppercase tracking-tighter font-bold">Cookies Settings</Link>
-                    </div>
+            {/* Bottom Bar */}
+            <div className="pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p className="text-gray-500 text-sm">
+                    © {new Date().getFullYear()} RoomOra. All rights reserved.
+                </p>
+                <div className="flex gap-8 text-sm text-gray-500">
+                    <Link to="/privacy" className="hover:text-gray-900 uppercase tracking-tighter font-bold">Privacy Policy</Link>
+                    <Link to="/terms" className="hover:text-gray-900 uppercase tracking-tighter font-bold">Terms of Service</Link>
+                    <Link to="/cookies" className="hover:text-gray-900 uppercase tracking-tighter font-bold">Cookies Settings</Link>
                 </div>
             </div>
         </footer>
