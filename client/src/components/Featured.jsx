@@ -7,8 +7,8 @@ const Featured = () => {
   const navigate = useNavigate();
   const { rooms } = useContext(AppContext);
 
-  // Show first 3 rooms as featured
-  const featuredRooms = rooms.slice(0, 3);
+  // Show first 4 rooms as featured
+  const featuredRooms = rooms.slice(0, 4);
 
   return (
     <>
@@ -35,7 +35,7 @@ const Featured = () => {
         </div>
 
         {featuredRooms.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {featuredRooms.map((room, index) => (
               <HotelCard key={room._id} room={room} index={index} />
             ))}

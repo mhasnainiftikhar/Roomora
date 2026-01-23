@@ -3,6 +3,8 @@ import { assets } from '../assets/assets';
 import { Link } from 'react-router-dom';
 import { AppContext } from '../context/appContext';
 import axios from 'axios';
+import { loadStripe } from '@stripe/stripe-js';
+
 
 const MyBookings = () => {
     const { getToken, currency, toast } = useContext(AppContext);
@@ -25,6 +27,29 @@ const MyBookings = () => {
             setLoading(false);
         }
     };
+
+    // Handle Payment
+    const handlePayment = async (bookingId) => {
+        try {
+            const token = await getToken();
+            const { data } = await axios.post('/api/booking/stripe-payment',
+                { bookingId },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            if (data.success) {
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    toast.error("Payment URL not found. Please try again.");
+                }
+            }
+        } catch (error) {
+            console.error('Payment error:', error);
+            toast.error(error.response?.data?.message || "Payment initiation failed");
+        }
+    };
+
 
     useEffect(() => {
         fetchUserBookings();
@@ -128,7 +153,8 @@ const MyBookings = () => {
                                         </div>
                                         <div className="flex gap-4 w-full sm:w-auto">
                                             {!booking.isPaid && (
-                                                <button className="flex-1 sm:flex-none px-6 py-3 bg-green-600 text-white rounded-2xl font-bold text-sm hover:bg-green-700 hover:shadow-lg transition-all active:scale-95 shadow-lg shadow-green-100">
+                                                <button className="flex-1 sm:flex-none px-6 py-3 bg-green-600 text-white rounded-2xl font-bold text-sm hover:bg-green-700 hover:shadow-lg transition-all active:scale-95 shadow-lg shadow-green-100"
+                                                    onClick={() => handlePayment(booking._id)}>
                                                     Pay Now
                                                 </button>
                                             )}

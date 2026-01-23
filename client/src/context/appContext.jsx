@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createContext, useEffect, useState, useCallback } from 'react';
+import { createContext, useEffect, useState, useCallback, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser, useAuth } from '@clerk/clerk-react';
 import toast from 'react-hot-toast';
@@ -8,6 +8,15 @@ import toast from 'react-hot-toast';
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 export const AppContext = createContext();
+
+// Add this custom hook
+export const useAppContext = () => {
+    const context = useContext(AppContext);
+    if (!context) {
+        throw new Error('useAppContext must be used within an AppProvider');
+    }
+    return context;
+};
 
 export const AppProvider = ({ children }) => {
     const currency = import.meta.env.VITE_CURRENCY || '$';
@@ -22,7 +31,7 @@ export const AppProvider = ({ children }) => {
     const [isOwner, setIsOwner] = useState(false);
     const [showHotelReg, setShowHotelReg] = useState(false);
 
-    const getRoomsData = async () => {
+    const getRoomsData = useCallback(async () => {
         try {
             const { data } = await axios.get('/api/room/get-rooms');
             if (data.success) {
@@ -34,9 +43,8 @@ export const AppProvider = ({ children }) => {
             console.error("Error fetching rooms:", error);
             toast.error(error.response?.data?.message || "Failed to fetch rooms");
         }
-    };
+    }, []); // No dependencies needed
 
-    // Use useCallback to memoize fetchUserData
     const fetchUserData = useCallback(async () => {
         try {
             const token = await getToken();
@@ -55,7 +63,7 @@ export const AppProvider = ({ children }) => {
         }
     }, [getToken]);
 
-    const registerHotel = async (hotelData) => {
+    const registerHotel = useCallback(async (hotelData) => {
         try {
             const token = await getToken();
             const { data } = await axios.post('/api/hotel', hotelData, {
@@ -76,11 +84,11 @@ export const AppProvider = ({ children }) => {
             toast.error(error.response?.data?.message || "Registration failed");
             return false;
         }
-    };
+    }, [getToken, fetchUserData, navigate]);
 
     useEffect(() => {
         getRoomsData();
-    }, []);
+    }, [getRoomsData]);
 
     useEffect(() => {
         if (user) {
@@ -106,8 +114,8 @@ export const AppProvider = ({ children }) => {
         showHotelReg,
         setShowHotelReg,
         navigate,
-        toast,
-        getToken
+        getToken,
+        toast
     };
 
     return (

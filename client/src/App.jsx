@@ -9,6 +9,7 @@ import CookieSettings from './pages/CookieSettings'
 import Rooms from './pages/Rooms'
 import RoomDetails from './pages/RoomDetails'
 import MyBookings from './pages/MyBookings'
+import VerifyPayment from './pages/VerifyPayment'
 import HotelReg from './components/HotelReg'
 import Layout from './pages/hotelOwner/Layout'
 import Dashboard from './pages/hotelOwner/Dashboard'
@@ -19,12 +20,14 @@ import Experience from './pages/Experience'
 import { useUser } from '@clerk/clerk-react'
 import { Toaster } from 'react-hot-toast'
 import { AppContext } from './context/appContext'
+import Loader from './components/loader'
 
 const App = () => {
   const { user } = useUser()
   const { userData, isOwner } = useContext(AppContext)
   const isOwnerPath = useLocation().pathname.includes("owner")
   const [isHotelRegOpen, setIsHotelRegOpen] = React.useState(false);
+
 
   return (
     <div>
@@ -57,6 +60,9 @@ const App = () => {
           <Route path='/privacy' element={<PrivacyPolicy />} />
           <Route path='/terms' element={<TermsConditions />} />
           <Route path='/cookies' element={<CookieSettings />} />
+          <Route path='/loader/:nextUrl' element={<Loader />} />
+          <Route path='/verify' element={<VerifyPayment />} />
+
           <Route path='/owner' element={<Layout />}>
             <Route index element={<Dashboard />} />
             <Route path='add-room' element={<AddRoom />} />
