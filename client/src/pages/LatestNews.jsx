@@ -39,7 +39,7 @@ const LatestNews = () => {
                                 <span className="text-xs text-gray-400">{news.date}</span>
                             </div>
                             <h3 className="font-bold text-xl mb-3 text-gray-900 group-hover:text-amber-600 transition-colors">{news.title}</h3>
-                            <a href="#" className="text-sm font-semibold underline">Read More</a>
+                            <a href="#" className="text-sm font-semibold underline cursor-pointer">Read More</a>
                         </div>
                     </div>
                 ))}
