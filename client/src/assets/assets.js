@@ -31,7 +31,7 @@ import roomImg5 from './roomImg5.jpg'
 import roomImg6 from './roomImg6.jpg'
 import roomImg7 from './roomImg7.jpg'
 import roomImg9 from './roomImg9.jpg'
-import experienceHero from './experienceHero.jpg'
+import experienceHero from './ExperienceHero.jpg'
 import aboutHero from './aboutHero.jpg'
 import regImage from './regImage.png'
 import exclusiveOfferCardImg1 from "./exclusiveOfferCardImg1.jpg";
