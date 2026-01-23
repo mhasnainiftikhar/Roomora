@@ -17,6 +17,11 @@ import AddRoom from './pages/hotelOwner/AddRoom'
 import ListRoom from './pages/hotelOwner/ListRoom'
 import About from './pages/About'
 import Experience from './pages/Experience'
+import HelpCenter from './pages/HelpCenter'
+import SafetyInformation from './pages/SafetyInformation'
+import CancellationPolicy from './pages/CancellationPolicy'
+import CovidResponse from './pages/CovidResponse'
+import ReportConcern from './pages/ReportConcern'
 import { useUser } from '@clerk/clerk-react'
 import { Toaster } from 'react-hot-toast'
 import { AppContext } from './context/appContext'
@@ -62,6 +67,11 @@ const App = () => {
           <Route path='/cookies' element={<CookieSettings />} />
           <Route path='/loader/:nextUrl' element={<Loader />} />
           <Route path='/verify' element={<VerifyPayment />} />
+          <Route path='/help-center' element={<HelpCenter />} />
+          <Route path='/safety' element={<SafetyInformation />} />
+          <Route path='/cancellation-policy' element={<CancellationPolicy />} />
+          <Route path='/covid-response' element={<CovidResponse />} />
+          <Route path='/report-concern' element={<ReportConcern />} />
 
           <Route path='/owner' element={<Layout />}>
             <Route index element={<Dashboard />} />

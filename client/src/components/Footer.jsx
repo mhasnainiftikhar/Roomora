@@ -39,11 +39,11 @@ const Footer = () => {
                     <div>
                         <h4 className="text-gray-900 font-bold mb-6 text-lg">Support</h4>
                         <ul className="flex flex-col gap-4">
-                            {['Help Centre', 'Safety Information', 'Cancellation Options', 'Our COVID-19 Response', 'Report a Concern'].map((item) => (
-                                <li key={item}>
-                                    <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors">{item}</a>
-                                </li>
-                            ))}
+                            <li><Link to="/help-center" className="text-gray-500 hover:text-gray-900 transition-colors">Help Centre</Link></li>
+                            <li><Link to="/safety" className="text-gray-500 hover:text-gray-900 transition-colors">Safety Information</Link></li>
+                            <li><Link to="/cancellation-policy" className="text-gray-500 hover:text-gray-900 transition-colors">Cancellation Options</Link></li>
+                            <li><Link to="/covid-response" className="text-gray-500 hover:text-gray-900 transition-colors">Our COVID-19 Response</Link></li>
+                            <li><Link to="/report-concern" className="text-gray-500 hover:text-gray-900 transition-colors">Report a Concern</Link></li>
                         </ul>
                     </div>
 
