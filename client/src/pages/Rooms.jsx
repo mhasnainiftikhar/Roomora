@@ -77,7 +77,7 @@ const Rooms = () => {
                                     setMaxPrice(1000);
                                     setSelectedAmenities([]);
                                 }}
-                                className="mt-8 text-gray-900 font-bold border-b-2 border-gray-900 hover:text-gray-600 hover:border-gray-600 transition-all"
+                                className="mt-8 text-gray-900 font-bold border-b-2 border-gray-900 hover:text-gray-600 hover:border-gray-600 transition-all cursor-pointer"
                             >
                                 Clear all filters
                             </button>
@@ -112,13 +112,13 @@ const Rooms = () => {
 
                         {/* Room Type */}
                         <div className="mb-8">
-                            <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">Property Type</label>
+                            <label className="block text-sm font-bold text-gray-700 mb-3 uppercase tracking-wider">Room Type</label>
                             <div className="flex flex-wrap gap-2">
                                 {allRoomTypes.map(type => (
                                     <button
                                         key={type}
                                         onClick={() => setSelectedType(type)}
-                                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${selectedType === type
+                                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${selectedType === type
                                             ? 'bg-gray-900 text-white shadow-lg'
                                             : 'bg-gray-50 text-gray-500 hover:bg-gray-100'
                                             }`}

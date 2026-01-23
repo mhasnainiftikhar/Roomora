@@ -45,7 +45,7 @@ const ReportConcern = () => {
                             ></textarea>
                         </div>
 
-                        <button className="bg-red-600 text-white px-8 py-3 rounded-full font-bold hover:bg-red-700 transition-colors w-full md:w-auto">
+                        <button className="bg-red-600 text-white px-8 py-3 rounded-full font-bold hover:bg-red-700 transition-colors w-full md:w-auto cursor-pointer">
                             Submit Report
                         </button>
                     </form>

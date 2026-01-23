@@ -19,7 +19,7 @@ const ExclusiveOffers = () => {
                 </div>
                 <button
                     onClick={() => navigate('/rooms')}
-                    className="text-black font-bold transition-all flex items-center gap-2 group whitespace-nowrap hover:text-gray-600"
+                    className="text-black font-bold transition-all flex items-center gap-2 group whitespace-nowrap hover:text-gray-600 cursor-pointer"
                 >
                     View All Offers
                     <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -66,7 +66,7 @@ const ExclusiveOffers = () => {
                                     <span className="text-sm font-semibold">{offer.expiryDate}</span>
                                 </div>
 
-                                <button className="bg-white text-gray-900 px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-gray-100 transition-all active:scale-95 shadow-lg group-hover:px-8">
+                                <button className="bg-white text-gray-900 px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-gray-100 transition-all active:scale-95 shadow-lg group-hover:px-8 cursor-pointer">
                                     View Offer
                                 </button>
                             </div>

@@ -7,10 +7,10 @@ const Experience = () => {
     return (
         <div className="bg-white">
             {/* Hero Section */}
-            <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
+            <section className="relative h-[90vh] flex items-center justify-center overflow-hidden ">
                 <div className="absolute inset-0 z-0">
                     <img
-                        src={assets.exclusiveOfferCardImg3}
+                        src={assets.experienceHero}
                         alt="The Experience"
                         className="w-full h-full object-cover scale-105 animate-slow-zoom"
                     />
@@ -33,7 +33,7 @@ const Experience = () => {
                 <div className="flex flex-col md:flex-row gap-12 items-center mb-32">
                     <div className="w-full md:w-1/2">
                         <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl skew-y-1">
-                            <img src={assets.roomImg2} alt="Culinary" className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000" />
+                            <img src={assets.roomImg7} alt="Culinary" className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000" />
                         </div>
                     </div>
                     <div className="w-full md:w-1/2 md:pl-12">
@@ -52,7 +52,7 @@ const Experience = () => {
                 <div className="flex flex-col md:flex-row-reverse gap-12 items-center mb-32">
                     <div className="w-full md:w-1/2">
                         <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl -skew-y-1">
-                            <img src={assets.roomImg3} alt="Wellness" className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000" />
+                            <img src={assets.roomImg5} alt="Wellness" className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000" />
                         </div>
                     </div>
                     <div className="w-full md:w-1/2 md:pr-12">
@@ -71,7 +71,7 @@ const Experience = () => {
                 <div className="flex flex-col md:flex-row gap-12 items-center">
                     <div className="w-full md:w-1/2">
                         <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl skew-y-1">
-                            <img src={assets.exclusiveOfferCardImg1} alt="Concierge" className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000" />
+                            <img src={assets.roomImg6} alt="Concierge" className="w-full h-full object-cover hover:scale-110 transition-transform duration-1000" />
                         </div>
                     </div>
                     <div className="w-full md:w-1/2 md:pl-12">
@@ -97,7 +97,7 @@ const Experience = () => {
                     <p className="text-gray-400 font-bold tracking-widest uppercase text-xs">Included in every stay</p>
                 </div>
 
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 relative z-10 ">
                     {[
                         { name: "24/7 Butler Service", icon: assets.userIcon },
                         { name: "Luxury Chauffeuring", icon: assets.locationIcon },
@@ -108,7 +108,7 @@ const Experience = () => {
                         { name: "Fastest WiFi", icon: assets.freeWifiIcon },
                         { name: "Valet Shopping", icon: assets.badgeIcon },
                     ].map((item, index) => (
-                        <div key={index} className="flex flex-col items-center text-center p-8 border border-white/5 bg-white/5 rounded-[2rem] hover:bg-white/10 transition-all cursor-default">
+                        <div key={index} className="flex flex-col items-center text-center p-8 border border-white/5 bg-white/5 rounded-[2rem] hover:bg-white/10 transition-all cursor-pointer">
                             <div className="w-12 h-12 mb-6 flex items-center justify-center bg-white/10 rounded-xl">
                                 <img src={item.icon} alt={item.name} className="w-6 h-6 invert" />
                             </div>
@@ -121,7 +121,7 @@ const Experience = () => {
             {/* CTA Section */}
             <section className="py-32 px-4 text-center">
                 <h2 className="text-4xl md:text-6xl font-black text-gray-900 font-playfair mb-12">Ready to Discover?</h2>
-                <button className="bg-gray-900 text-white px-12 py-5 rounded-full font-black uppercase tracking-widest hover:bg-gray-700 transition-all shadow-2xl hover:shadow-gray-400 active:scale-95 leading-none"
+                <button className="bg-gray-900 text-white px-12 py-5 rounded-full font-black uppercase tracking-widest hover:bg-gray-700 transition-all shadow-2xl hover:shadow-gray-400 active:scale-95 leading-none cursor-pointer"
                     onClick={() => navigate('/rooms')}>
                     Explore Our Hotels
                 </button>

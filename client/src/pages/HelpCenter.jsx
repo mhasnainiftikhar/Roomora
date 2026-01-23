@@ -25,19 +25,19 @@ const HelpCenter = () => {
                 <section>
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
                     <div className="grid md:grid-cols-2 gap-6">
-                        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 cursor-pointer">
                             <h3 className="font-bold text-lg mb-2">How do I cancel my booking?</h3>
                             <p className="text-gray-600">Go to My Bookings, select the reservation, and click Cancel. Please review the cancellation policy first.</p>
                         </div>
-                        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 cursor-pointer">
                             <h3 className="font-bold text-lg mb-2">When will I get my refund?</h3>
                             <p className="text-gray-600">Refuncs are typically processed within 5-10 business days, depending on your bank's processing times.</p>
                         </div>
-                        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 cursor-pointer">
                             <h3 className="font-bold text-lg mb-2">Is my payment secure?</h3>
                             <p className="text-gray-600">Yes, we use industry-standard encryption and trusted payment gateways to ensure your data is safe.</p>
                         </div>
-                        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 cursor-pointer">
                             <h3 className="font-bold text-lg mb-2">How can I contact a host?</h3>
                             <p className="text-gray-600">Once your booking is confirmed, you will find options to message the host directly from your dashboard.</p>
                         </div>
@@ -50,7 +50,7 @@ const HelpCenter = () => {
                     <div className="bg-black text-white p-8 rounded-xl text-center">
                         <h3 className="text-xl font-bold mb-4">Contact our Support Team</h3>
                         <p className="mb-6 text-gray-300">Our team is available 24/7 to assist you with any issues.</p>
-                        <button className="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors">
+                        <button className="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors cursor-pointer">
                             Contact Us
                         </button>
                     </div>

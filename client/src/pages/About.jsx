@@ -5,10 +5,10 @@ const About = () => {
     return (
         <div className="bg-white">
             {/* Hero Section */}
-            <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
+            <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <img
-                        src={assets.regImage}
+                        src={assets.aboutHero}
                         alt="About RoomOra"
                         className="w-full h-full object-cover scale-105 animate-slow-zoom"
                     />
@@ -45,7 +45,7 @@ const About = () => {
                     <div className="relative">
                         <div className="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl">
                             <img
-                                src={assets.roomImg1}
+                                src={assets.roomImg9}
                                 alt="Story Image"
                                 className="w-full h-full object-cover"
                             />
@@ -83,7 +83,7 @@ const About = () => {
                             icon: assets.locationFilledIcon
                         }
                     ].map((value, index) => (
-                        <div key={index} className="bg-white p-12 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all duration-500 group">
+                        <div key={index} className="bg-white p-12 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all duration-500 group cursor-pointer">
                             <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-gray-900 transition-colors">
                                 <img src={value.icon} alt={value.title} className="w-8 h-8 group-hover:invert group-hover:brightness-0 transition-all" />
                             </div>

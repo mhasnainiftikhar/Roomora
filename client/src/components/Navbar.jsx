@@ -39,7 +39,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Scroll effect
+  
   useEffect(() => {
     const handleScroll = () => {
       if (location.pathname !== '/') {
@@ -49,7 +49,7 @@ const Navbar = () => {
       }
     };
 
-    handleScroll(); // Initial check
+    handleScroll(); 
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -100,7 +100,7 @@ const Navbar = () => {
           {user && isOwner && (
             <button
               onClick={() => navigate('/owner')}
-              className={`border px-4 py-1 text-sm rounded-full ${isScrolled ? 'text-black border-black' : 'text-white border-white'}`}
+              className={`border px-4 py-1 text-sm rounded-full cursor-pointer ${isScrolled ? 'text-black border-black' : 'text-white border-white'}`}
             >
               Dashboard
             </button>
@@ -108,7 +108,7 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Right */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-4 cursor-pointer">
           <img
             src={assets.searchIcon}
             alt="Search"
@@ -128,7 +128,7 @@ const Navbar = () => {
           ) : (
             <button
               onClick={openSignIn}
-              className={`px-8 py-2.5 rounded-full ${isScrolled ? 'bg-black text-white' : 'bg-white text-black'
+              className={`px-8 py-2.5 rounded-full cursor-pointer ${isScrolled ? 'bg-black text-white' : 'bg-white text-black'
                 }`}
             >
               Login
@@ -194,7 +194,7 @@ const Navbar = () => {
                 navigate('/owner');
                 setIsMenuOpen(false);
               }}
-              className="border border-black px-6 py-2 rounded-full text-sm"
+              className="border border-black px-6 py-2 rounded-full text-sm cursor-pointer"
             >
               Dashboard
             </button>
@@ -202,7 +202,7 @@ const Navbar = () => {
         ) : (
           <button
             onClick={openSignIn}
-            className="bg-black text-white px-8 py-2.5 rounded-full"
+            className="bg-black text-white px-8 py-2.5 rounded-full cursor-pointer"
           >
             Login
           </button>

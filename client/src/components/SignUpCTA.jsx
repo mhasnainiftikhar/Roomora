@@ -30,7 +30,7 @@ const SignUpCTA = () => {
                                 placeholder="Enter your email"
                                 className="flex-grow px-6 py-4 bg-gray-800/50 border border-gray-700 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-700 transition-all"
                             />
-                            <button className="px-8 py-4 bg-white text-gray-900 font-bold rounded-2xl hover:bg-gray-100 transition-all active:scale-95 shadow-xl whitespace-nowrap">
+                            <button className="px-8 py-4 bg-white text-gray-900 font-bold rounded-2xl hover:bg-gray-100 transition-all active:scale-95 shadow-xl whitespace-nowrap cursor-pointer">
                                 Subscribe
                             </button>
                         </div>
@@ -52,7 +52,7 @@ const SignUpCTA = () => {
                     {/* Image Area */}
                     <div className="flex-1 relative min-h-[300px] lg:min-h-auto overflow-hidden">
                         <img
-                            src={assets.regImage}
+                            src={assets.hotelReg2}
                             alt="Registration"
                             className="absolute inset-0 w-full h-full object-cover lg:object-center opacity-80 lg:opacity-100"
                         />

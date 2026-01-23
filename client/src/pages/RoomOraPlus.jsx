@@ -15,7 +15,7 @@ const RoomOraPlus = () => {
                     <p className="text-xl md:text-2xl text-gray-300 max-w-2xl leading-relaxed mb-10">
                         A selection of homes verified for quality and design. Exceptional homes, exceptional hosts.
                     </p>
-                    <button className="bg-white text-gray-900 px-10 py-4 rounded-full font-bold hover:bg-purple-50 transition-colors">
+                    <button className="bg-white text-gray-900 px-10 py-4 rounded-full font-bold hover:bg-purple-50 transition-colors cursor-pointer">
                         Explore Plus Homes
                     </button>
                 </div>

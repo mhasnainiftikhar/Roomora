@@ -27,7 +27,7 @@ const Careers = () => {
                                     <h3 className="font-bold text-lg group-hover:text-amber-600 transition-colors">{job.title}</h3>
                                     <p className="text-gray-500">{job.team} • {job.location}</p>
                                 </div>
-                                <button className="bg-gray-900 text-white px-6 py-2 rounded-full text-sm font-bold opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0">
+                                <button className="bg-gray-900 text-white px-6 py-2 rounded-full text-sm font-bold opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0 cursor-pointer">
                                     Apply Now
                                 </button>
                             </div>
@@ -40,7 +40,7 @@ const Careers = () => {
                     <p className="text-amber-800 mb-6">
                         We are always looking for talented individuals to join our growing team. Send us your resume and tell us why you'd be a great addition to RoomOra.
                     </p>
-                    <button className="bg-white text-amber-900 px-8 py-3 rounded-full font-bold hover:bg-amber-100 transition-colors">
+                    <button className="bg-white text-amber-900 px-8 py-3 rounded-full font-bold hover:bg-amber-100 transition-colors cursor-pointer">
                         Send General Application
                     </button>
                 </section>

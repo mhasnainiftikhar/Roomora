@@ -25,7 +25,7 @@ const Featured = () => {
           </div>
           <button
             onClick={() => navigate('/rooms')}
-            className="text-black font-bold transition-all flex items-center gap-2 group whitespace-nowrap hover:text-gray-600"
+            className="text-black font-bold transition-all flex items-center gap-2 group whitespace-nowrap hover:text-gray-600 cursor-pointer"
           >
             View All Properties
             <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">

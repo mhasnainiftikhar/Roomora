@@ -39,7 +39,7 @@ const HotelCardList = ({ room }) => {
                             </h3>
                             <p className="text-gray-500 text-sm flex items-center gap-2 font-medium">
                                 <img src={assets.locationIcon} alt="loc" className="w-4 h-4 opacity-50" />
-                                {location}, Maldives
+                                {location}
                             </p>
                         </div>
                         <div className="flex items-center gap-1.5 bg-gray-900 text-white px-3 py-1.5 rounded-xl font-bold text-sm">

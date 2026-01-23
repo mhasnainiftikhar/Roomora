@@ -49,7 +49,7 @@ const App = () => {
           {user && !isOwner && (
             <button
               onClick={() => setIsHotelRegOpen(true)}
-              className="fixed bottom-10 right-10 z-[60] bg-black text-white px-6 py-3 rounded-full font-bold shadow-2xl hover:bg-gray-600 transition-all animate-bounce"
+              className="fixed bottom-10 right-10 z-[60] bg-black text-white px-6 py-3 rounded-full font-bold shadow-2xl hover:bg-gray-600 transition-all animate-bounce cursor-pointer"
             >
               Register Your Hotel
             </button>

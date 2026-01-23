@@ -59,17 +59,17 @@ const Footer = () => {
                         </ul>
                     </div>
                 </div>
-            </div>
 
-            {/* Bottom Bar */}
-            <div className="pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6">
-                <p className="text-gray-500 text-sm">
-                    © {new Date().getFullYear()} RoomOra. All rights reserved.
-                </p>
-                <div className="flex gap-8 text-sm text-gray-500">
-                    <Link to="/privacy" className="hover:text-gray-900 uppercase tracking-tighter font-bold">Privacy Policy</Link>
-                    <Link to="/terms" className="hover:text-gray-900 uppercase tracking-tighter font-bold">Terms of Service</Link>
-                    <Link to="/cookies" className="hover:text-gray-900 uppercase tracking-tighter font-bold">Cookies Settings</Link>
+                {/* Bottom Bar */}
+                <div className="pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <p className="text-gray-500 text-sm">
+                        © {new Date().getFullYear()} RoomOra. All rights reserved.
+                    </p>
+                    <div className="flex gap-8 text-sm text-gray-500">
+                        <Link to="/privacy" className="hover:text-gray-900 uppercase tracking-tighter font-bold">Privacy Policy</Link>
+                        <Link to="/terms" className="hover:text-gray-900 uppercase tracking-tighter font-bold">Terms of Service</Link>
+                        <Link to="/cookies" className="hover:text-gray-900 uppercase tracking-tighter font-bold">Cookies Settings</Link>
+                    </div>
                 </div>
             </div>
         </footer>

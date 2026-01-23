@@ -14,7 +14,7 @@ const SafetyInformation = () => {
                 </section>
 
                 <div className="grid md:grid-cols-2 gap-8">
-                    <section className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <section className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm cursor-pointer">
                         <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                             For Guests
                         </h2>
@@ -26,7 +26,7 @@ const SafetyInformation = () => {
                         </ul>
                     </section>
 
-                    <section className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <section className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm cursor-pointer">
                         <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                             For Hosts
                         </h2>

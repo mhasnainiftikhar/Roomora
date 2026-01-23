@@ -11,8 +11,7 @@ const LatestNews = () => {
                 {/* Featured Article */}
                 <div className="col-span-full md:grid md:grid-cols-2 gap-8 mb-8 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
                     <div className="h-64 md:h-auto bg-gray-200 relative overflow-hidden">
-                        {/* Placeholder for a real image if available, using a pattern or color for now */}
-                        <div className="absolute inset-0 bg-gradient-to-tr from-gray-900 to-gray-600"></div>
+                       <img src={assets.roomImg6} alt="" />
                     </div>
                     <div className="p-8 flex flex-col justify-center">
                         <span className="text-amber-600 font-bold text-sm tracking-wider mb-2">PRODUCT UPDATE</span>

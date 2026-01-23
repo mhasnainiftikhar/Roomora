@@ -11,7 +11,7 @@ const Sidebar = () => {
 
   return (
     <aside className="w-72 bg-white border-r border-gray-100 hidden md:flex flex-col h-[calc(100vh-80px)] sticky top-20">
-      <div className="flex-1 py-12 px-6 space-y-3">
+      <div className="flex-1 py-12 px-6 space-y-3 cursor-pointer">
         {sidebarLinks.map((link) => (
           <NavLink
             key={link.name}

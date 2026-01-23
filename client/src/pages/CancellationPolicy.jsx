@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CancellationPolicy = () => {
+    const nav = useNavigate();
     return (
         <div className="max-w-4xl mx-auto px-4 py-20 mt-6">
             <h1 className="text-4xl font-extrabold mb-8 font-playfair text-gray-900">Cancellation Policy</h1>
@@ -15,19 +17,19 @@ const CancellationPolicy = () => {
                 <section>
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">Policy Tiers</h2>
                     <div className="grid gap-6">
-                        <div className="bg-white p-6 rounded-xl border border-green-100 shadow-sm">
+                        <div className="bg-white p-6 rounded-xl border border-green-100 shadow-sm cursor-pointer">
                             <h3 className="text-xl font-bold text-green-700 mb-2">Flexible</h3>
                             <p className="text-gray-600 mb-2">Free cancellation until 24 hours before check-in.</p>
                             <p className="text-sm text-gray-500">If cancelled within 24 hours of check-in, the first night is non-refundable.</p>
                         </div>
 
-                        <div className="bg-white p-6 rounded-xl border border-yellow-100 shadow-sm">
+                        <div className="bg-white p-6 rounded-xl border border-yellow-100 shadow-sm cursor-pointer">
                             <h3 className="text-xl font-bold text-yellow-700 mb-2">Moderate</h3>
                             <p className="text-gray-600 mb-2">Free cancellation until 5 days before check-in.</p>
                             <p className="text-sm text-gray-500">If cancelled within 5 days, 50% of the reservation is non-refundable.</p>
                         </div>
 
-                        <div className="bg-white p-6 rounded-xl border border-red-100 shadow-sm">
+                        <div className="bg-white p-6 rounded-xl border border-red-100 shadow-sm cursor-pointer">
                             <h3 className="text-xl font-bold text-red-700 mb-2">Strict</h3>
                             <p className="text-gray-600 mb-2">Free cancellation for 48 hours after booking, if the check-in date is at least 14 days away.</p>
                             <p className="text-sm text-gray-500">Otherwise, the reservation is non-refundable.</p>
@@ -50,7 +52,7 @@ const CancellationPolicy = () => {
                 <section>
                     <h2 className="text-2xl font-bold text-gray-900 mb-4">How to Cancel</h2>
                     <p className="text-gray-600">
-                        To cancel your reservation, go to <span className="font-semibold text-black">My Bookings</span>,
+                        To cancel your reservation, go to <span className="font-semibold text-black cursor-pointer" onClick={()=>nav('/my-bookings')}>My Bookings</span>,
                         select the trip you wish to cancel, and follow the cancellation instructions. The refund amount
                         will be automatically calculated based on the policy applied to your booking.
                     </p>

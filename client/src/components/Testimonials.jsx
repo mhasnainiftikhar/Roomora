@@ -18,7 +18,7 @@ const Testimonials = () => {
                 {testimonials.map((testimonial) => (
                     <div
                         key={testimonial.id}
-                        className="bg-white p-8 rounded-3xl shadow-lg border border-gray-50 flex flex-col hover:shadow-xl transition-shadow duration-300"
+                        className="bg-white p-8 rounded-3xl shadow-lg border border-gray-50 flex flex-col hover:shadow-xl transition-shadow duration-300 cursor-pointer"
                     >
                         {/* Rating */}
                         <div className="flex gap-1 mb-6">

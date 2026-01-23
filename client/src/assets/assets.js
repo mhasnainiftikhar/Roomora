@@ -27,16 +27,23 @@ import roomImg1 from './roomImg1.png'
 import roomImg2 from './roomImg2.png'
 import roomImg3 from './roomImg3.png'
 import roomImg4 from './roomImg4.png'
+import roomImg5 from './roomImg5.jpg'
+import roomImg6 from './roomImg6.jpg'
+import roomImg7 from './roomImg7.jpg'
+import roomImg9 from './roomImg9.jpg'
+import experienceHero from './experienceHero.jpg'
+import aboutHero from './aboutHero.jpg'
 import regImage from './regImage.png'
-import exclusiveOfferCardImg1 from "./exclusiveOfferCardImg1.png";
-import exclusiveOfferCardImg2 from "./exclusiveOfferCardImg2.png";
-import exclusiveOfferCardImg3 from "./exclusiveOfferCardImg3.png";
+import exclusiveOfferCardImg1 from "./exclusiveOfferCardImg1.jpg";
+import exclusiveOfferCardImg2 from "./exclusiveOfferCardImg2.jpg";
+import exclusiveOfferCardImg3 from "./exclusiveOfferCardImg3.jpg";
 import addIcon from "./addIcon.svg";
 import dashboardIcon from "./dashboardIcon.svg";
 import listIcon from "./listIcon.svg";
 import uploadArea from "./uploadArea.svg";
 import totalBookingIcon from "./totalBookingIcon.svg";
 import totalRevenueIcon from "./totalRevenueIcon.svg";
+import hotelReg2 from "./hotelReg2.jpg";
 
 
 export const assets = {
@@ -79,6 +86,13 @@ export const assets = {
     roomImg2,
     roomImg3,
     roomImg4,
+    roomImg5,
+    roomImg6,
+    roomImg7,
+    roomImg9,
+    experienceHero,
+    aboutHero,
+    hotelReg2,
 }
 
 export const cities = [
