@@ -361,7 +361,6 @@ const RoomDetails = () => {
                                 src={`https://maps.google.com/maps?q=${city}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
                                 style={{ border: 0 }}
                                 allowFullScreen=""
-                                loading="lazy"
                             ></iframe>
                             <div className="absolute inset-0 bg-black/5 pointer-events-none" />
                             <div className="absolute top-8 left-8 bg-white/95 backdrop-blur-md px-8 py-4 rounded-[2rem] shadow-2xl border border-white/50">

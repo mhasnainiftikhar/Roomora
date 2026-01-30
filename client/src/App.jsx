@@ -30,6 +30,7 @@ import { useUser } from '@clerk/clerk-react'
 import { Toaster } from 'react-hot-toast'
 import { AppContext } from './context/appContext'
 import Loader from './components/loader'
+import ScrollToTop from './components/ScrollToTop'
 
 const App = () => {
   const { user } = useUser()
@@ -40,6 +41,7 @@ const App = () => {
 
   return (
     <div>
+      <ScrollToTop />
       <Toaster />
       {!isOwnerPath && <Navbar />}
 
