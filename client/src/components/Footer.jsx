@@ -2,6 +2,8 @@ import React from 'react';
 import { assets } from '../assets/assets';
 import { Link } from 'react-router-dom';
 
+import logo from '../assets/Vector.svg';
+
 const Footer = () => {
     return (
         <footer className="bg-white border-t border-gray-100 pt-20 pb-10">
@@ -9,7 +11,12 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                     {/* Brand Section */}
                     <div className="flex flex-col gap-6">
-                        <img src={assets.logo} alt="RoomOra Logo" className="w-32 brightness-0" />
+                        <Link to="/" className="flex items-center gap-2">
+                            <img src={logo} alt="Roomora Logo" className="h-9 w-auto brightness-0" />
+                            <span className="text-2xl font-bold text-gray-700">
+                                Roomora
+                            </span>
+                        </Link>
                         <p className="text-gray-500 leading-relaxed max-w-sm">
                             Discover the world's most luxurious stays. We curate unforgettable experiences
                             in the most breathtaking destinations across the globe.
